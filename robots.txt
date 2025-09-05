@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://example.com/sitemap.xml
+
+# Block unnecessary crawling
+Disallow: /assets/
+Disallow: *.js$
+Disallow: *.css$
+
+# Cache busting
+Disallow: /*?*
+
+# Admin areas (if any)
+Disallow: /admin/
+Disallow: /private/

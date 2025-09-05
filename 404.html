@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | MonoWorks Studio</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Return to MonoWorks Studio's homepage or use our search to find what you need.">
+  <link rel="canonical" href="https://example.com/404.html">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <meta property="og:title" content="404 - Page Not Found | MonoWorks Studio">
+  <meta property="og:description" content="The page you're looking for doesn't exist. Return to MonoWorks Studio's homepage.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/404.html">
+  <meta property="og:image" content="https://example.com/assets/images/og-image-1200x630.svg">
+  
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  
+  <header class="header" role="banner">
+    <div class="container">
+      <div class="header__content">
+        <div class="header__logo">
+          <a href="index.html" aria-label="MonoWorks Studio - Home">
+            <img src="assets/icons/logo.svg" alt="MonoWorks Studio" width="240" height="40">
+          </a>
+        </div>
+        
+        <nav class="header__nav" role="navigation" aria-label="Main navigation" aria-expanded="false">
+          <ul class="nav__list">
+            <li><a href="index.html" class="nav__link">Home</a></li>
+            <li><a href="about.html" class="nav__link">About</a></li>
+            <li><a href="services.html" class="nav__link">Services</a></li>
+            <li><a href="projects.html" class="nav__link">Projects</a></li>
+            <li><a href="blog.html" class="nav__link">Blog</a></li>
+            <li><a href="faq.html" class="nav__link">FAQ</a></li>
+            <li><a href="contact.html" class="nav__link">Contact</a></li>
+          </ul>
+          
+          <button class="theme-toggle" aria-label="Switch to dark theme" type="button">
+            <img src="assets/icons/ui-moon.svg" alt="" class="theme-toggle__icon" width="20" height="20">
+          </button>
+        </nav>
+        
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <img src="assets/icons/ui-menu.svg" alt="" class="nav-toggle__icon" width="24" height="24">
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <main id="main" role="main">
+    <section class="section--hero" aria-labelledby="error-title">
+      <div class="container">
+        <div class="hero__content">
+          <h1 id="error-title" style="font-size: var(--step-5); color: var(--text-muted);">404</h1>
+          <h2 style="margin-bottom: var(--space-m);">Page Not Found</h2>
+          <p class="hero__subtitle">Sorry, the page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+          
+          <div class="hero__actions">
+            <a href="index.html" class="btn btn--primary btn--large">Return Home</a>
+            <a href="contact.html" class="btn btn--secondary btn--large">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" aria-labelledby="search-title">
+      <div class="container">
+        <div style="max-width: 600px; margin: 0 auto; text-center;">
+          <h2 id="search-title">Search Our Site</h2>
+          <p class="text-muted" style="margin-bottom: var(--space-l);">Try searching for what you were looking for:</p>
+          
+          <form class="form" role="search" aria-label="Site search">
+            <div class="form__group">
+              <label for="search" class="sr-only">Search</label>
+              <input type="search" id="search" name="search" class="form__input" placeholder="Search for pages, services, or content..." aria-describedby="search-help">
+              <div id="search-help" class="sr-only">Enter keywords to search the site</div>
+            </div>
+            <button type="submit" class="btn btn--primary" style="width: 100%;">Search</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" aria-labelledby="helpful-links-title" style="background: var(--surface);">
+      <div class="container">
+        <h2 id="helpful-links-title" class="text-center">Popular Pages</h2>
+        <p class="text-center text-muted">Here are some pages you might be looking for:</p>
+        
+        <div class="grid grid--3 fade-in">
+          <div class="card text-center">
+            <h3>Our Services</h3>
+            <p>Explore our web development, design, and strategy services.</p>
+            <a href="services.html" class="btn btn--secondary">View Services</a>
+          </div>
+          
+          <div class="card text-center">
+            <h3>Recent Projects</h3>
+            <p>See examples of our work and client success stories.</p>
+            <a href="projects.html" class="btn btn--secondary">View Projects</a>
+          </div>
+          
+          <div class="card text-center">
+            <h3>About Our Team</h3>
+            <p>Learn about MonoWorks Studio and our approach to digital excellence.</p>
+            <a href="about.html" class="btn btn--secondary">About Us</a>
+          </div>
+          
+          <div class="card text-center">
+            <h3>Latest Blog Posts</h3>
+            <p>Read our insights on design, development, and digital strategy.</p>
+            <a href="blog.html" class="btn btn--secondary">Read Blog</a>
+          </div>
+          
+          <div class="card text-center">
+            <h3>Get Answers</h3>
+            <p>Find answers to common questions about our process and services.</p>
+            <a href="faq.html" class="btn btn--secondary">View FAQ</a>
+          </div>
+          
+          <div class="card text-center">
+            <h3>Start a Project</h3>
+            <p>Ready to work with us? Get in touch to discuss your project.</p>
+            <a href="contact.html" class="btn btn--secondary">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" aria-labelledby="help-title">
+      <div class="container">
+        <div class="text-center">
+          <h2 id="help-title">Need More Help?</h2>
+          <p class="text-muted" style="margin-bottom: var(--space-xl);">
+            If you can't find what you're looking for, we're here to help. Reach out to our team.
+          </p>
+          <div class="flex flex--center flex--wrap">
+            <a href="mailto:hello@monoworks.studio" class="btn btn--primary btn--large">Email Us</a>
+            <a href="tel:+1-555-0123" class="btn btn--secondary btn--large">Call Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__section">
+          <h3>MonoWorks Studio</h3>
+          <p class="text-muted">Crafting digital excellence with precision and expertise.</p>
+        </div>
+        <div class="footer__section">
+          <h3>Services</h3>
+          <ul class="footer__links">
+            <li><a href="services.html#web-development">Web Development</a></li>
+            <li><a href="services.html#ui-ux-design">UI/UX Design</a></li>
+            <li><a href="services.html#brand-strategy">Brand Strategy</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h3>Company</h3>
+          <ul class="footer__links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h3>Connect</h3>
+          <ul class="footer__links">
+            <li><a href="https://github.com/monoworks-studio" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://twitter.com/monoworks" target="_blank" rel="noopener">Twitter</a></li>
+            <li><a href="https://linkedin.com/company/monoworks-studio" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2024 MonoWorks Studio. All rights reserved.</p>
+        <div style="margin-top: var(--space-s);">
+          <a href="#" style="color: var(--text-muted); margin: 0 var(--space-s);">Privacy Policy</a>
+          <a href="#" style="color: var(--text-muted); margin: 0 var(--space-s);">Terms of Service</a>
+          <a href="#main" style="color: var(--text-muted); margin: 0 var(--space-s);">Back to Top</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="main.js" defer></script>
+</body>
+</html>

@@ -1,1055 +1,540 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavlonTools - Vaqt Asboblari</title>
+    <meta name="description" content="Luxury automotive and high-tech solutions with cutting-edge design and innovation">
+    <title>LuxuryTech | Premium Automotive & Technology Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --vercel-black: #000000;
-            --vercel-gray: #666666;
-            --vercel-light-gray: #f5f5f5;
-            --vercel-border: #eaeaea;
-            --vercel-blue: #0070f3;
-            --vercel-green: #0070f3;
-            --vercel-red: #e00;
-            --vercel-purple: #7928ca;
-            --vercel-orange: #f5a623;
-        }
-        
-        body {
-            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .modal-overlay {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-        }
-        
-        .tool-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(0);
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-1px);
-        }
-        
-        .time-display {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .modal {
-            animation: modalSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body class="min-h-screen">
-    <!-- Header -->
-    <header class="glass-effect sticky top-0 z-50 border-b border-white/20">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-clock text-white text-lg"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">JavlonTools</h1>
-                        <p class="text-sm text-gray-600">Vaqt va hisoblash asboblari</p>
-                    </div>
-                </div>
-                <button onclick="showSettingsModal()" class="btn-secondary px-4 py-2 rounded-lg text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-cog mr-2"></i>Sozlamalar
-                </button>
-            </div>
-        </div>
-    </header>
-
+<body class="font-['PT Mono'] bg-black text-white overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="glass-effect border-b border-white/20 sticky top-20 z-40">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-wrap justify-center gap-3 py-4">
-                <button onclick="showTool('budilnik')" id="nav-budilnik" 
-                        class="nav-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 btn-primary text-white shadow-lg">
-                    <i class="fas fa-bell mr-2"></i>Budilnik
-                </button>
-                <button onclick="showTool('sekundomer')" id="nav-sekundomer" 
-                        class="nav-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 btn-secondary text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-stopwatch mr-2"></i>Sekundomer
-                </button>
-                <button onclick="showTool('timer')" id="nav-timer" 
-                        class="nav-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 btn-secondary text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-hourglass-half mr-2"></i>Timer
-                </button>
-                <button onclick="showTool('yosh')" id="nav-yosh" 
-                        class="nav-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 btn-secondary text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-birthday-cake mr-2"></i>Yosh hisoblagich
-                </button>
+    <nav class="fixed w-full bg-black bg-opacity-90 backdrop-blur-sm z-50 border-b border-slate-800">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-wider">
+                <a href="index.html" class="hover:text-slate-300 transition duration-300">LUXURY<span class="text-cyan-400">TECH</span></a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-cyan-400 border-b-2 border-cyan-400 pb-1">Home</a>
+                <a href="about.html" class="hover:text-cyan-400 transition duration-300">About</a>
+                <a href="services.html" class="hover:text-cyan-400 transition duration-300">Services</a>
+                <a href="portfolio.html" class="hover:text-cyan-400 transition duration-300">Portfolio</a>
+                <a href="blog.html" class="hover:text-cyan-400 transition duration-300">Blog</a>
+                <a href="contact.html" class="hover:text-cyan-400 transition duration-300">Contact</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95 backdrop-blur-lg absolute w-full py-4 border-t border-slate-800">
+            <div class="container mx-auto px-4 flex flex-col space-y-4">
+                <a href="index.html" class="text-cyan-400">Home</a>
+                <a href="about.html" class="hover:text-cyan-400 transition duration-300">About</a>
+                <a href="services.html" class="hover:text-cyan-400 transition duration-300">Services</a>
+                <a href="portfolio.html" class="hover:text-cyan-400 transition duration-300">Portfolio</a>
+                <a href="blog.html" class="hover:text-cyan-400 transition duration-300">Blog</a>
+                <a href="contact.html" class="hover:text-cyan-400 transition duration-300">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
-        
-        <!-- Budilnik Section -->
-        <section id="budilnik" class="tool-section fade-in">
-            <div class="glass-effect tool-card rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-bell text-white text-2xl"></i>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-16 pb-20 hero-section relative overflow-hidden">
+        <div class="container mx-auto px-4 py-20 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span class="block">REDEFINING</span>
+                        <span class="block text-gradient mt-2">LUXURY & TECH</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl">
+                        We craft premium automotive and high-tech solutions that blend elegance with innovation. Experience the future of luxury design.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="portfolio.html" class="btn-primary py-3 px-8 rounded-full hover:bg-cyan-300 transition duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/30 glow-border">
+                            Explore Portfolio
+                        </a>
+                        <a href="contact.html" class="btn-secondary py-3 px-8 rounded-full hover:border-cyan-400 hover:text-cyan-400 transition duration-300 glow-border">
+                            Get in Touch
+                        </a>
                     </div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Budilnik</h2>
-                    <p class="text-gray-600">Vaqtingizni boshqaring va eslatmalar o'rnating</p>
                 </div>
-                
-                <!-- Current Time Display -->
-                <div class="text-center mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
-                    <div class="text-6xl font-bold time-display mb-3" id="current-time">00:00:00</div>
-                    <div class="text-xl text-gray-600 font-medium" id="current-date"></div>
-                </div>
-
-                <!-- Alarm Settings -->
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/30">
-                    <h3 class="text-xl font-semibold mb-6 text-center text-gray-800">
-                        <i class="fas fa-clock mr-2 text-blue-600"></i>Budilnik vaqtini o'rnating
-                    </h3>
-                    <div class="flex justify-center gap-6 mb-6">
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Soat</label>
-                            <input type="number" id="alarm-hour" min="0" max="23" value="12" 
-                                   class="w-24 px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-blue-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Daqiqa</label>
-                            <input type="number" id="alarm-minute" min="0" max="59" value="0" 
-                                   class="w-24 px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-blue-500 focus:outline-none transition-colors">
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-cyan-400/20 border border-slate-800 glow-border">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-96 flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-4"></div>
+                                <p class="text-slate-400">Luxury Car Image</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Controls -->
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button onclick="setAlarm()" 
-                            class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-save mr-2"></i>O'rnatish
-                    </button>
-                    <button onclick="startAlarm()" 
-                            class="px-8 py-3 btn-primary text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-play mr-2"></i>Boshlash
-                    </button>
-                    <button onclick="stopAlarm()" 
-                            class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-pause mr-2"></i>To'xtatish
-                    </button>
-                    <button onclick="resetAlarm()" 
-                            class="px-8 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-redo mr-2"></i>Qayta tiklash
-                    </button>
-                </div>
-
-                <!-- Status -->
-                <div class="text-center p-6 bg-white/30 backdrop-blur-sm rounded-2xl border border-white/40">
-                    <div id="alarm-status" class="text-xl font-semibold text-gray-700 mb-2">
-                        <i class="fas fa-info-circle mr-2 text-blue-600"></i>Budilnik o'rnatilmagan
-                    </div>
-                    <div id="alarm-time-display" class="text-lg text-gray-600"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sekundomer Section -->
-        <section id="sekundomer" class="tool-section hidden fade-in">
-            <div class="glass-effect tool-card rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-stopwatch text-white text-2xl"></i>
-                    </div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Sekundomer</h2>
-                    <p class="text-gray-600">Vaqtingizni aniq o'lchang va lap vaqtlarini kuzating</p>
-                </div>
-                
-                <!-- Time Display -->
-                <div class="text-center mb-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100">
-                    <div class="text-7xl font-bold text-green-600 mb-3" id="stopwatch-display">00:00:00.000</div>
-                    <div class="text-lg text-gray-600">Joriy vaqt</div>
-                </div>
-
-                <!-- Controls -->
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button onclick="startStopwatch()" 
-                            class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-play mr-2"></i>Boshlash
-                    </button>
-                    <button onclick="stopStopwatch()" 
-                            class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-pause mr-2"></i>To'xtatish
-                    </button>
-                    <button onclick="resetStopwatch()" 
-                            class="px-8 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-redo mr-2"></i>Qayta tiklash
-                    </button>
-                    <button onclick="lapStopwatch()" 
-                            class="px-8 py-3 btn-primary text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-flag mr-2"></i>Lap
-                    </button>
-                </div>
-
-                <!-- Lap Times -->
-                <div id="lap-times" class="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
-                    <h3 class="text-xl font-semibold mb-4 text-center text-gray-800">
-                        <i class="fas fa-list mr-2 text-green-600"></i>Lap vaqtlari
-                    </h3>
-                    <div id="lap-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timer Section -->
-        <section id="timer" class="tool-section hidden fade-in">
-            <div class="glass-effect tool-card rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-hourglass-half text-white text-2xl"></i>
-                    </div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Timer</h2>
-                    <p class="text-gray-600">Orasida tanaffus oling yoki vaqt chegarasini belgilang</p>
-                </div>
-                
-                <!-- Time Display -->
-                <div class="text-center mb-8 p-6 bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl border border-orange-100">
-                    <div class="text-7xl font-bold text-orange-600 mb-3" id="timer-display">00:00</div>
-                    <div class="text-lg text-gray-600">Qolgan vaqt</div>
-                </div>
-
-                <!-- Timer Settings -->
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/30">
-                    <h3 class="text-xl font-semibold mb-6 text-center text-gray-800">
-                        <i class="fas fa-cog mr-2 text-orange-600"></i>Timer vaqtini o'rnating
-                    </h3>
-                    <div class="flex justify-center gap-6 mb-6">
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Daqiqa</label>
-                            <input type="number" id="timer-minutes" min="0" max="59" value="5" 
-                                   class="w-24 px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-orange-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Soniya</label>
-                            <input type="number" id="timer-seconds" min="0" max="59" value="0" 
-                                   class="w-24 px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-orange-500 focus:outline-none transition-colors">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Controls -->
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button onclick="setTimer()" 
-                            class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-save mr-2"></i>O'rnatish
-                    </button>
-                    <button onclick="startTimer()" 
-                            class="px-8 py-3 btn-primary text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-play mr-2"></i>Boshlash
-                    </button>
-                    <button onclick="stopTimer()" 
-                            class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-pause mr-2"></i>To'xtatish
-                    </button>
-                    <button onclick="resetTimer()" 
-                            class="px-8 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-redo mr-2"></i>Qayta tiklash
-                    </button>
-                </div>
-
-                <!-- Status -->
-                <div class="text-center p-6 bg-white/30 backdrop-blur-sm rounded-2xl border border-white/40">
-                    <div id="timer-status" class="text-xl font-semibold text-gray-700">
-                        <i class="fas fa-info-circle mr-2 text-orange-600"></i>Timer o'rnatilmagan
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Yosh hisoblagich Section -->
-        <section id="yosh" class="tool-section hidden fade-in">
-            <div class="glass-effect tool-card rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-birthday-cake text-white text-2xl"></i>
-                    </div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Yosh hisoblagich</h2>
-                    <p class="text-gray-600">Tug'ilgan sanangizdan boshlab qancha vaqt o'tganini hisoblang</p>
-                </div>
-                
-                <!-- Birth Date Input -->
-                <div class="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/30">
-                    <h3 class="text-xl font-semibold mb-6 text-center text-gray-800">
-                        <i class="fas fa-calendar-alt mr-2 text-purple-600"></i>Tug'ilgan sana va vaqt
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Yil</label>
-                            <input type="number" id="birth-year" min="1900" max="2024" value="1990" 
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-purple-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Oy</label>
-                            <input type="number" id="birth-month" min="1" max="12" value="1" 
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-purple-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Kun</label>
-                            <input type="number" id="birth-day" min="1" max="31" value="1" 
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-purple-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Soat</label>
-                            <input type="number" id="birth-hour" min="0" max="23" value="0" 
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-purple-500 focus:outline-none transition-colors">
-                        </div>
-                        <div class="text-center">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Daqiqa</label>
-                            <input type="number" id="birth-minute" min="0" max="59" value="0" 
-                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-center text-lg font-semibold focus:border-purple-500 focus:outline-none transition-colors">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Calculate Button -->
-                <div class="text-center mb-8">
-                    <button onclick="calculateAge()" 
-                            class="px-12 py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl hover:from-purple-600 hover:to-pink-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-calculator mr-3"></i>Hisoblash
-                    </button>
-                </div>
-
-                <!-- Age Display -->
-                <div id="age-result" class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 text-center border border-purple-100">
-                    <div class="text-3xl font-bold text-purple-600 mb-6">
-                        <i class="fas fa-heart mr-2"></i>Sizning yoshingiz
-                    </div>
-                    <div id="age-display" class="space-y-4 text-xl">
-                        <div class="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl border border-purple-200">
-                            <span class="font-semibold text-gray-700">Yil:</span>
-                            <span id="age-years" class="font-bold text-purple-600 text-2xl">-</span>
-                        </div>
-                        <div class="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl border border-purple-200">
-                            <span class="font-semibold text-gray-700">Oy:</span>
-                            <span id="age-months" class="font-bold text-purple-600 text-2xl">-</span>
-                        </div>
-                        <div class="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl border border-purple-200">
-                            <span class="font-semibold text-gray-700">Kun:</span>
-                            <span id="age-days" class="font-bold text-purple-600 text-2xl">-</span>
-                        </div>
-                        <div class="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl border border-purple-200">
-                            <span class="font-semibold text-gray-700">Soat:</span>
-                            <span id="age-hours" class="font-bold text-purple-600 text-2xl">-</span>
-                        </div>
-                        <div class="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl border border-purple-200">
-                            <span class="font-semibold text-gray-700">Daqiqa:</span>
-                            <span id="age-minutes" class="font-bold text-purple-600 text-2xl">-</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Error Display -->
-                <div id="age-error" class="hidden mt-6 p-6 bg-red-100 border-2 border-red-300 rounded-2xl text-red-700 text-center text-lg font-medium"></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="fixed inset-0 z-50 hidden">
-        <div class="modal-overlay absolute inset-0"></div>
-        <div class="relative flex items-center justify-center min-h-screen p-4">
-            <div class="glass-effect modal rounded-2xl shadow-2xl max-w-md w-full p-8">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900">
-                        <i class="fas fa-cog mr-2 text-blue-600"></i>Sozlamalar
-                    </h3>
-                    <button onclick="closeSettingsModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Til</label>
-                        <select class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
-                            <option value="uz">O'zbekcha</option>
-                            <option value="en">English</option>
-                            <option value="ru">Русский</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tema</label>
-                        <select class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
-                            <option value="light">Yorug'</option>
-                            <option value="dark">Qorong'u</option>
-                            <option value="auto">Avtomatik</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Ovozli eslatmalar</span>
-                        </label>
-                    </div>
-                    
-                    <div>
-                        <label class="flex items-center space-x-3">
-                            <input type="checkbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium text-gray-700">Vibratsiya</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="flex gap-3 mt-8">
-                    <button onclick="closeSettingsModal()" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium">
-                        Bekor qilish
-                    </button>
-                    <button onclick="saveSettings()" class="flex-1 px-6 py-3 btn-primary text-white rounded-xl font-medium">
-                        Saqlash
-                    </button>
+                    <div class="absolute -top-4 -right-4 w-full h-full rounded-2xl bg-cyan-400 opacity-20 blur-xl"></div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- Interactive 3D Element -->
+        <div class="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-cyan-400 opacity-10 blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-48 h-48 rounded-full bg-purple-400 opacity-10 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </section>
 
-    <!-- Notification Modal -->
-    <div id="notificationModal" class="fixed inset-0 z-50 hidden">
-        <div class="modal-overlay absolute inset-0"></div>
-        <div class="relative flex items-center justify-center min-h-screen p-4">
-            <div class="glass-effect modal rounded-2xl shadow-2xl max-w-sm w-full p-8 text-center">
-                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-check text-white text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2" id="notificationTitle">Muvaffaqiyat!</h3>
-                <p class="text-gray-600 mb-6" id="notificationMessage">Amal bajarildi</p>
-                <button onclick="closeNotificationModal()" class="w-full px-6 py-3 btn-primary text-white rounded-xl font-medium">
-                    OK
-                </button>
+    <!-- Features Section -->
+    <section class="py-20 bg-gradient-to-b from-black to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">OUR <span class="text-gradient">EXPERTISE</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">We combine cutting-edge technology with timeless design principles to create exceptional experiences.</p>
             </div>
-        </div>
-    </div>
-
-    <!-- Alarm Modal -->
-    <div id="alarmModal" class="fixed inset-0 z-50 hidden">
-        <div class="modal-overlay absolute inset-0"></div>
-        <div class="relative flex items-center justify-center min-h-screen p-4">
-            <div class="glass-effect modal rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
-                <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 pulse-animation">
-                    <i class="fas fa-bell text-white text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Vaqt keldi!</h3>
-                <p class="text-lg text-gray-600 mb-6">Budilnik signal berdi</p>
-                <div class="flex gap-3">
-                    <button onclick="stopAlarmFromModal()" class="flex-1 px-6 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors font-medium">
-                        <i class="fas fa-stop mr-2"></i>To'xtatish
-                    </button>
-                    <button onclick="snoozeAlarm()" class="flex-1 px-6 py-3 btn-primary text-white rounded-xl font-medium">
-                        <i class="fas fa-clock mr-2"></i>5 daqiqa
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Global variables
-        let currentTool = 'budilnik';
-        let alarmTime = null;
-        let alarmActive = false;
-        let alarmInterval = null;
-        let currentTimeInterval = null;
-        
-        let stopwatchStartTime = null;
-        let stopwatchElapsed = 0;
-        let stopwatchInterval = null;
-        let stopwatchRunning = false;
-        let lapTimes = [];
-        
-        let timerTime = 0;
-        let timerInterval = null;
-        let timerRunning = false;
-        let timerSet = false;
-
-        // Modal functions
-        function showSettingsModal() {
-            document.getElementById('settingsModal').classList.remove('hidden');
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.add('hidden');
-        }
-
-        function saveSettings() {
-            showNotification('Sozlamalar saqlandi!', 'Barcha o\'zgarishlar qo\'llanildi');
-            closeSettingsModal();
-        }
-
-        function showNotification(title, message) {
-            document.getElementById('notificationTitle').textContent = title;
-            document.getElementById('notificationMessage').textContent = message;
-            document.getElementById('notificationModal').classList.remove('hidden');
-        }
-
-        function closeNotificationModal() {
-            document.getElementById('notificationModal').classList.add('hidden');
-        }
-
-        function showAlarmModal() {
-            document.getElementById('alarmModal').classList.remove('hidden');
-        }
-
-        function closeAlarmModal() {
-            document.getElementById('alarmModal').classList.add('hidden');
-        }
-
-        function stopAlarmFromModal() {
-            stopAlarm();
-            closeAlarmModal();
-        }
-
-        function snoozeAlarm() {
-            // Add 5 minutes to current alarm time
-            if (alarmTime) {
-                alarmTime.minutes += 5;
-                if (alarmTime.minutes >= 60) {
-                    alarmTime.minutes -= 60;
-                    alarmTime.hours = (alarmTime.hours + 1) % 24;
-                }
-                showNotification('Budilnik 5 daqiqaga kechiktirildi', `Yangi vaqt: ${alarmTime.hours.toString().padStart(2, '0')}:${alarmTime.minutes.toString().padStart(2, '0')}`);
-            }
-            closeAlarmModal();
-        }
-
-        // Navigation functions
-        function showTool(toolName) {
-            // Hide all tool sections
-            document.querySelectorAll('.tool-section').forEach(section => {
-                section.classList.add('hidden');
-            });
             
-            // Remove active class from all nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('btn-primary', 'text-white');
-                btn.classList.add('btn-secondary', 'text-gray-700');
-            });
-            
-            // Show selected tool section
-            document.getElementById(toolName).classList.remove('hidden');
-            
-            // Add active class to selected nav button
-            const activeBtn = document.getElementById(`nav-${toolName}`);
-            activeBtn.classList.remove('btn-secondary', 'text-gray-700');
-            activeBtn.classList.add('btn-primary', 'text-white');
-            
-            currentTool = toolName;
-            
-            // Start current time display if budilnik is selected
-            if (toolName === 'budilnik') {
-                startCurrentTimeDisplay();
-            } else {
-                stopCurrentTimeDisplay();
-            }
-        }
-
-        // Current time display for budilnik
-        function startCurrentTimeDisplay() {
-            if (currentTimeInterval) return;
-            
-            currentTimeInterval = setInterval(() => {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('uz-UZ', { 
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                const dateString = now.toLocaleDateString('uz-UZ', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    weekday: 'long'
-                });
-                
-                document.getElementById('current-time').textContent = timeString;
-                document.getElementById('current-date').textContent = dateString;
-                
-                // Check alarm
-                if (alarmActive && alarmTime) {
-                    const currentTime = now.getHours() * 60 + now.getMinutes();
-                    const alarmTimeMinutes = alarmTime.hours * 60 + alarmTime.minutes;
-                    
-                    if (currentTime === alarmTimeMinutes && now.getSeconds() === 0) {
-                        playAlarm();
-                    }
-                }
-            }, 1000);
-        }
-
-        function stopCurrentTimeDisplay() {
-            if (currentTimeInterval) {
-                clearInterval(currentTimeInterval);
-                currentTimeInterval = null;
-            }
-        }
-
-        // Alarm functions
-        function setAlarm() {
-            const hour = parseInt(document.getElementById('alarm-hour').value);
-            const minute = parseInt(document.getElementById('alarm-minute').value);
-            
-            if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
-                showNotification('Xatolik!', 'Noto\'g\'ri vaqt kiritildi!');
-                return;
-            }
-            
-            alarmTime = { hours: hour, minutes: minute };
-            document.getElementById('alarm-status').innerHTML = '<i class="fas fa-check-circle mr-2 text-green-600"></i>Budilnik o\'rnatildi';
-            document.getElementById('alarm-time-display').textContent = 
-                `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-            
-            showNotification('Budilnik o\'rnatildi!', `Vaqt: ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`);
-        }
-
-        function startAlarm() {
-            if (!alarmTime) {
-                showNotification('Diqqat!', 'Avval budilnik vaqtini o\'rnating!');
-                return;
-            }
-            
-            alarmActive = true;
-            document.getElementById('alarm-status').innerHTML = '<i class="fas fa-play-circle mr-2 text-blue-600"></i>Budilnik faol';
-            showNotification('Budilnik ishga tushdi!', 'Vaqt keldi va sizga xabar beriladi');
-        }
-
-        function stopAlarm() {
-            alarmActive = false;
-            document.getElementById('alarm-status').innerHTML = '<i class="fas fa-pause-circle mr-2 text-orange-600"></i>Budilnik to\'xtatildi';
-            closeAlarmModal();
-        }
-
-        function resetAlarm() {
-            alarmActive = false;
-            alarmTime = null;
-            document.getElementById('alarm-status').innerHTML = '<i class="fas fa-info-circle mr-2 text-blue-600"></i>Budilnik o\'rnatilmagan';
-            document.getElementById('alarm-time-display').textContent = '';
-            document.getElementById('alarm-hour').value = 12;
-            document.getElementById('alarm-minute').value = 0;
-            showNotification('Budilnik qayta tiklandi!', 'Barcha sozlamalar tozalandi');
-        }
-
-        function playAlarm() {
-            // Create and play a simple beep sound
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.5);
-            
-            document.getElementById('alarm-status').innerHTML = '<i class="fas fa-bell mr-2 text-red-600 pulse-animation"></i>Vaqt keldi!';
-            showAlarmModal();
-        }
-
-        // Stopwatch functions
-        function startStopwatch() {
-            if (!stopwatchRunning) {
-                stopwatchStartTime = Date.now() - stopwatchElapsed;
-                stopwatchInterval = setInterval(updateStopwatch, 10);
-                stopwatchRunning = true;
-            }
-        }
-
-        function stopStopwatch() {
-            if (stopwatchRunning) {
-                clearInterval(stopwatchInterval);
-                stopwatchRunning = false;
-            }
-        }
-
-        function resetStopwatch() {
-            stopStopwatch();
-            stopwatchElapsed = 0;
-            lapTimes = [];
-            updateStopwatchDisplay();
-            document.getElementById('lap-list').innerHTML = '';
-        }
-
-        function lapStopwatch() {
-            if (stopwatchRunning) {
-                const currentTime = Date.now() - stopwatchStartTime;
-                const lapTime = currentTime - (lapTimes.length > 0 ? lapTimes[lapTimes.length - 1].totalTime : 0);
-                
-                lapTimes.push({
-                    lapNumber: lapTimes.length + 1,
-                    lapTime: lapTime,
-                    totalTime: currentTime
-                });
-                
-                updateLapDisplay();
-            }
-        }
-
-        function updateStopwatch() {
-            stopwatchElapsed = Date.now() - stopwatchStartTime;
-            updateStopwatchDisplay();
-        }
-
-        function updateStopwatchDisplay() {
-            const totalMs = stopwatchElapsed;
-            const hours = Math.floor(totalMs / 3600000);
-            const minutes = Math.floor((totalMs % 3600000) / 60000);
-            const seconds = Math.floor((totalMs % 60000) / 1000);
-            const milliseconds = totalMs % 1000;
-            
-            const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
-            document.getElementById('stopwatch-display').textContent = display;
-        }
-
-        function updateLapDisplay() {
-            const lapList = document.getElementById('lap-list');
-            lapList.innerHTML = '';
-            
-            if (lapTimes.length === 0) {
-                lapList.innerHTML = '<div class="text-center text-gray-500 py-4"><i class="fas fa-flag mr-2"></i>Hali lap vaqtlari yo\'q</div>';
-                return;
-            }
-            
-            lapTimes.forEach((lap, index) => {
-                const lapDiv = document.createElement('div');
-                lapDiv.className = 'flex justify-between items-center py-3 px-4 bg-white/70 rounded-xl border border-green-200 hover:bg-white/90 transition-colors';
-                
-                const lapTimeMs = lap.lapTime;
-                const lapHours = Math.floor(lapTimeMs / 3600000);
-                const lapMinutes = Math.floor((lapTimeMs % 3600000) / 60000);
-                const lapSeconds = Math.floor((lapTimeMs % 60000) / 1000);
-                const lapMilliseconds = lapTimeMs % 1000;
-                
-                const lapTimeString = `${lapHours.toString().padStart(2, '0')}:${lapMinutes.toString().padStart(2, '0')}:${lapSeconds.toString().padStart(2, '0')}.${lapMilliseconds.toString().padStart(3, '0')}`;
-                
-                // Find fastest and slowest laps
-                const lapTimesOnly = lapTimes.map(l => l.lapTime);
-                const fastestTime = Math.min(...lapTimesOnly);
-                const slowestTime = Math.max(...lapTimesOnly);
-                
-                let lapClass = 'text-green-600';
-                if (lap.lapTime === fastestTime && lapTimes.length > 1) {
-                    lapClass = 'text-green-700 font-bold';
-                } else if (lap.lapTime === slowestTime && lapTimes.length > 1) {
-                    lapClass = 'text-red-600';
-                }
-                
-                lapDiv.innerHTML = `
-                    <div class="flex items-center">
-                        <i class="fas fa-flag text-green-500 mr-2"></i>
-                        <span class="font-semibold text-gray-700">Lap ${lap.lapNumber}</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-slate-800 hover:border-cyan-400 transition duration-300 group fade-in service-card">
+                    <div class="w-16 h-16 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center mb-6 group-hover:bg-opacity-20 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                     </div>
-                    <span class="font-bold ${lapClass}">${lapTimeString}</span>
-                `;
+                    <h3 class="text-xl font-bold mb-3">Innovation</h3>
+                    <p class="text-slate-400 mb-4">Pioneering solutions that push the boundaries of what's possible in automotive and technology sectors.</p>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center group">
+                        Learn more
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
                 
-                lapList.appendChild(lapDiv);
-            });
-        }
+                <!-- Feature 2 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-slate-800 hover:border-cyan-400 transition duration-300 group fade-in service-card">
+                    <div class="w-16 h-16 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center mb-6 group-hover:bg-opacity-20 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Precision</h3>
+                    <p class="text-slate-400 mb-4">Meticulous attention to detail in every project, ensuring flawless execution and premium quality.</p>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center group">
+                        Learn more
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-slate-800 hover:border-cyan-400 transition duration-300 group fade-in service-card">
+                    <div class="w-16 h-16 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center mb-6 group-hover:bg-opacity-20 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Elegance</h3>
+                    <p class="text-slate-400 mb-4">Timeless design principles that create visually stunning and emotionally engaging experiences.</p>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center group">
+                        Learn more
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Timer functions
-        function setTimer() {
-            const minutes = parseInt(document.getElementById('timer-minutes').value);
-            const seconds = parseInt(document.getElementById('timer-seconds').value);
+    <!-- Interactive Tech Stats Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/50 to-slate-800/50 backdrop-blur-sm"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">TECHNOLOGY <span class="text-gradient">METRICS</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Real-time data visualization of our technological achievements</p>
+            </div>
             
-            if (minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
-                showNotification('Xatolik!', 'Noto\'g\'ri vaqt kiritildi!');
-                return;
-            }
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Interactive Data Card 1 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-cyan-400 transition duration-300 group interactive-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold">Performance Index</h3>
+                        <div class="w-10 h-10 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-cyan-400 counter" data-target="96" data-suffix="%">0%</div>
+                            <div class="text-slate-400 text-sm">Efficiency Rate</div>
+                        </div>
+                        <div class="w-16 h-16">
+                            <canvas id="performanceChart" width="64" height="64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Data Card 2 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-cyan-400 transition duration-300 group interactive-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold">Innovation Score</h3>
+                        <div class="w-10 h-10 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-cyan-400 counter" data-target="87" data-suffix="%">0%</div>
+                            <div class="text-slate-400 text-sm">Creative Index</div>
+                        </div>
+                        <div class="w-16 h-16">
+                            <canvas id="innovationChart" width="64" height="64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Data Card 3 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-cyan-400 transition duration-300 group interactive-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold">Quality Rating</h3>
+                        <div class="w-10 h-10 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-cyan-400 counter" data-target="94" data-suffix="%">0%</div>
+                            <div class="text-slate-400 text-sm">Satisfaction Rate</div>
+                        </div>
+                        <div class="w-16 h-16">
+                            <canvas id="qualityChart" width="64" height="64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Data Card 4 -->
+                <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-cyan-400 transition duration-300 group interactive-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold">Growth Rate</h3>
+                        <div class="w-10 h-10 rounded-full bg-cyan-400 bg-opacity-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-cyan-400 counter" data-target="78" data-suffix="%">0%</div>
+                            <div class="text-slate-400 text-sm">Annual Growth</div>
+                        </div>
+                        <div class="w-16 h-16">
+                            <canvas id="growthChart" width="64" height="64"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            timerTime = minutes * 60 + seconds;
-            timerSet = true;
-            updateTimerDisplay();
-            document.getElementById('timer-status').innerHTML = '<i class="fas fa-check-circle mr-2 text-green-600"></i>Timer o\'rnatildi';
-            showNotification('Timer o\'rnatildi!', `Vaqt: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-        }
+            <!-- Interactive Visualization -->
+            <div class="bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border border-slate-800 glow-border">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Technology <span class="text-gradient">Evolution</span></h3>
+                        <p class="text-slate-400">Interactive visualization of our technological advancement over time</p>
+                    </div>
+                    <div class="flex space-x-2 mt-4 md:mt-0">
+                        <button class="tech-filter active" data-filter="all">All</button>
+                        <button class="tech-filter" data-filter="ai">AI</button>
+                        <button class="tech-filter" data-filter="auto">Automotive</button>
+                        <button class="tech-filter" data-filter="design">Design</button>
+                    </div>
+                </div>
+                <div class="h-80 relative">
+                    <canvas id="techEvolutionChart" class="w-full h-full"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function startTimer() {
-            if (!timerSet) {
-                showNotification('Diqqat!', 'Avval timer vaqtini o\'rnating!');
-                return;
-            }
+    <!-- Portfolio Preview -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">FEATURED <span class="text-cyan-400">PROJECTS</span></h2>
+                    <p class="text-slate-400">Explore our latest innovative creations</p>
+                </div>
+                <a href="portfolio.html" class="hidden md:block text-cyan-400 hover:text-cyan-300 border border-cyan-400 px-6 py-2 rounded-full hover:bg-cyan-400 hover:bg-opacity-10 transition duration-300">
+                    View All
+                </a>
+            </div>
             
-            if (!timerRunning) {
-                timerInterval = setInterval(() => {
-                    if (timerTime > 0) {
-                        timerTime--;
-                        updateTimerDisplay();
-                    } else {
-                        timerFinished();
-                    }
-                }, 1000);
-                timerRunning = true;
-                document.getElementById('timer-status').innerHTML = '<i class="fas fa-play-circle mr-2 text-blue-600"></i>Timer ishlamoqda';
-                showNotification('Timer ishga tushdi!', 'Vaqt tugashi bilan sizga xabar beriladi');
-            }
-        }
+            <!-- Portfolio Filter -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn px-6 py-2 rounded-full bg-cyan-400 text-black font-bold" data-filter="all">All Projects</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-700 hover:border-cyan-400 hover:text-cyan-400 transition duration-300" data-filter="automotive">Automotive</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-700 hover:border-cyan-400 hover:text-cyan-400 transition duration-300" data-filter="technology">Technology</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-700 hover:border-cyan-400 hover:text-cyan-400 transition duration-300" data-filter="design">Design</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group portfolio-item" data-category="automotive">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Quantum Drive System</h3>
+                    <p class="text-slate-400">Advanced automotive propulsion technology</p>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="group portfolio-item" data-category="technology">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Neural Interface Console</h3>
+                    <p class="text-slate-400">Next-gen vehicle control systems</p>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="group portfolio-item" data-category="design">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">AeroDynamic Framework</h3>
+                    <p class="text-slate-400">Revolutionary vehicle design architecture</p>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="group portfolio-item" data-category="automotive">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Luxury Interior Suite</h3>
+                    <p class="text-slate-400">Premium cabin experience design</p>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="group portfolio-item" data-category="technology">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Autonomous Navigation</h3>
+                    <p class="text-slate-400">AI-powered self-driving systems</p>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="group portfolio-item" data-category="design">
+                    <div class="rounded-2xl overflow-hidden mb-4 border border-slate-800 group-hover:border-cyan-400 transition duration-300">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 h-64 flex items-center justify-center">
+                            <div class="bg-slate-700 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Smart Lighting System</h3>
+                    <p class="text-slate-400">Adaptive ambient illumination</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 md:hidden">
+                <a href="portfolio.html" class="text-cyan-400 hover:text-cyan-300 border border-cyan-400 px-6 py-2 rounded-full hover:bg-cyan-400 hover:bg-opacity-10 transition duration-300">
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
 
-        function stopTimer() {
-            if (timerRunning) {
-                clearInterval(timerInterval);
-                timerRunning = false;
-                document.getElementById('timer-status').innerHTML = '<i class="fas fa-pause-circle mr-2 text-orange-600"></i>Timer to\'xtatildi';
-            }
-        }
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">CLIENT <span class="text-cyan-400">TESTIMONIALS</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Hear what our partners and clients have to say about working with us</p>
+            </div>
+            
+            <!-- Testimonials Carousel -->
+            <div class="max-w-4xl mx-auto testimonials-carousel">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide text-center p-8 bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl border border-slate-800">
+                    <div class="text-cyan-400 text-5xl mb-4">"</div>
+                    <p class="text-xl text-slate-300 mb-8 italic">LuxuryTech transformed our vision into reality with their exceptional attention to detail and innovative approach. The QuantumDrive system they developed for our fleet has revolutionized our operations.</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 mr-4"></div>
+                        <div class="text-left">
+                            <h4 class="text-xl font-bold">Michael Reynolds</h4>
+                            <p class="text-slate-400">CTO, AutoInnovate Inc.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide text-center p-8 bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl border border-slate-800" style="display: none;">
+                    <div class="text-cyan-400 text-5xl mb-4">"</div>
+                    <p class="text-xl text-slate-300 mb-8 italic">Working with LuxuryTech was a game-changer for our brand. Their team's expertise in blending luxury aesthetics with cutting-edge technology resulted in a product that exceeded our expectations.</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 mr-4"></div>
+                        <div class="text-left">
+                            <h4 class="text-xl font-bold">Sarah Johnson</h4>
+                            <p class="text-slate-400">Design Director, Elite Motors</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide text-center p-8 bg-slate-900 bg-opacity-50 backdrop-blur-sm rounded-2xl border border-slate-800" style="display: none;">
+                    <div class="text-cyan-400 text-5xl mb-4">"</div>
+                    <p class="text-xl text-slate-300 mb-8 italic">The precision and innovation that LuxuryTech brings to every project is unparalleled. Their Neural Interface Console has set a new standard in our industry for user experience.</p>
+                    <div class="flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 mr-4"></div>
+                        <div class="text-left">
+                            <h4 class="text-xl font-bold">David Chen</h4>
+                            <p class="text-slate-400">Product Manager, TechDrive Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Dots -->
+            <div class="flex justify-center mt-8 space-x-2">
+                <div class="carousel-dot w-3 h-3 rounded-full bg-cyan-400 cursor-pointer"></div>
+                <div class="carousel-dot w-3 h-3 rounded-full bg-slate-700 cursor-pointer"></div>
+                <div class="carousel-dot w-3 h-3 rounded-full bg-slate-700 cursor-pointer"></div>
+            </div>
+        </div>
+    </section>
 
-        function resetTimer() {
-            stopTimer();
-            timerTime = 0;
-            timerSet = false;
-            updateTimerDisplay();
-            document.getElementById('timer-status').innerHTML = '<i class="fas fa-info-circle mr-2 text-orange-600"></i>Timer o\'rnatilmagan';
-            document.getElementById('timer-minutes').value = 5;
-            document.getElementById('timer-seconds').value = 0;
-            showNotification('Timer qayta tiklandi!', 'Barcha sozlamalar tozalandi');
-        }
+    <!-- Stats Section -->
+    <section class="py-20 bg-gradient-to-r from-slate-900 to-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-400 mb-2 counter" data-target="150" data-suffix="+">0+</div>
+                    <div class="text-slate-400">Projects Completed</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-400 mb-2 counter" data-target="98" data-suffix="%">0%</div>
+                    <div class="text-slate-400">Client Satisfaction</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-400 mb-2 counter" data-target="50" data-suffix="+">0+</div>
+                    <div class="text-slate-400">Industry Awards</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-400 mb-2 counter" data-target="12">0</div>
+                    <div class="text-slate-400">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timerTime / 60);
-            const seconds = timerTime % 60;
-            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('timer-display').textContent = display;
-            
-            // Change color when timer is low
-            const timerDisplay = document.getElementById('timer-display');
-            if (timerTime <= 10 && timerTime > 0) {
-                timerDisplay.classList.add('text-red-600', 'pulse-animation');
-            } else {
-                timerDisplay.classList.remove('text-red-600', 'pulse-animation');
-            }
-        }
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-12 text-center border border-slate-700">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">READY TO <span class="text-cyan-400">TRANSFORM</span> YOUR VISION?</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto mb-8 text-lg">Join industry leaders who trust LuxuryTech for their most ambitious projects</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-cyan-400 text-black font-bold py-3 px-8 rounded-full hover:bg-cyan-300 transition duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/30">
+                        Start a Project
+                    </a>
+                    <a href="services.html" class="border-2 border-slate-700 text-white py-3 px-8 rounded-full hover:border-cyan-400 hover:text-cyan-400 transition duration-300">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function timerFinished() {
-            stopTimer();
-            playAlarm();
-            document.getElementById('timer-status').innerHTML = '<i class="fas fa-hourglass-end mr-2 text-red-600 pulse-animation"></i>Vaqt tugadi!';
-            showNotification('Timer tugadi!', 'Belgilangan vaqt yakunlandi');
-            setTimeout(() => {
-                document.getElementById('timer-status').innerHTML = '<i class="fas fa-info-circle mr-2 text-orange-600"></i>Timer tugadi';
-            }, 3000);
-        }
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">LUXURY<span class="text-cyan-400">TECH</span></h3>
+                    <p class="text-slate-400 mb-4">Crafting premium automotive and high-tech solutions with elegance and innovation.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.645-1.764 1.75-1.764 1.75.79 1.75 1.764-.784 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">About</a></li>
+                        <li><a href="services.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">Services</a></li>
+                        <li><a href="portfolio.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="blog.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">Blog</a></li>
+                        <li><a href="contact.html" class="text-slate-400 hover:text-cyan-400 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">Automotive Design</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">Technology Integration</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">Innovation Consulting</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">Product Development</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-cyan-400 transition duration-300">Engineering Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>123 Innovation Blvd, Tech City</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span>info@luxurytech.example</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
+                <p>&copy; 2023 LuxuryTech. All rights reserved. Designed with precision and innovation.</p>
+            </div>
+        </div>
+    </footer>
 
-        // Age calculator functions
-        function calculateAge() {
-            const year = parseInt(document.getElementById('birth-year').value);
-            const month = parseInt(document.getElementById('birth-month').value);
-            const day = parseInt(document.getElementById('birth-day').value);
-            const hour = parseInt(document.getElementById('birth-hour').value);
-            const minute = parseInt(document.getElementById('birth-minute').value);
-            
-            // Validate input
-            if (year < 1900 || year > new Date().getFullYear()) {
-                showAgeError('Noto\'g\'ri yil kiritildi!');
-                return;
-            }
-            
-            if (month < 1 || month > 12) {
-                showAgeError('Noto\'g\'ri oy kiritildi!');
-                return;
-            }
-            
-            if (day < 1 || day > 31) {
-                showAgeError('Noto\'g\'ri kun kiritildi!');
-                return;
-            }
-            
-            if (hour < 0 || hour > 23) {
-                showAgeError('Noto\'g\'ri soat kiritildi!');
-                return;
-            }
-            
-            if (minute < 0 || minute > 59) {
-                showAgeError('Noto\'g\'ri daqiqa kiritildi!');
-                return;
-            }
-            
-            const birthDate = new Date(year, month - 1, day, hour, minute);
-            const now = new Date();
-            
-            if (birthDate > now) {
-                showAgeError('Tug\'ilgan sana kelajakda bo\'lishi mumkin emas!');
-                return;
-            }
-            
-            // Calculate age
-            const ageInMs = now - birthDate;
-            const ageInMinutes = Math.floor(ageInMs / (1000 * 60));
-            const ageInHours = Math.floor(ageInMinutes / 60);
-            const ageInDays = Math.floor(ageInHours / 24);
-            
-            // Calculate years and months more accurately
-            let years = now.getFullYear() - birthDate.getFullYear();
-            let months = now.getMonth() - birthDate.getMonth();
-            let days = now.getDate() - birthDate.getDate();
-            
-            if (days < 0) {
-                months--;
-                const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
-            
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            const remainingHours = ageInHours % 24;
-            const remainingMinutes = ageInMinutes % 60;
-            
-            // Display results
-            document.getElementById('age-years').textContent = years;
-            document.getElementById('age-months').textContent = months;
-            document.getElementById('age-days').textContent = days;
-            document.getElementById('age-hours').textContent = remainingHours;
-            document.getElementById('age-minutes').textContent = remainingMinutes;
-            
-            hideAgeError();
-        }
-
-        function showAgeError(message) {
-            const errorDiv = document.getElementById('age-error');
-            errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i>${message}`;
-            errorDiv.classList.remove('hidden');
-            showNotification('Xatolik!', message);
-        }
-
-        function hideAgeError() {
-            document.getElementById('age-error').classList.add('hidden');
-        }
-
-        // Close modals when clicking outside
-        document.addEventListener('click', function(event) {
-            const settingsModal = document.getElementById('settingsModal');
-            const notificationModal = document.getElementById('notificationModal');
-            const alarmModal = document.getElementById('alarmModal');
-            
-            if (event.target === settingsModal) {
-                closeSettingsModal();
-            }
-            if (event.target === notificationModal) {
-                closeNotificationModal();
-            }
-            if (event.target === alarmModal) {
-                closeAlarmModal();
-            }
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
-            // Escape key to close modals
-            if (event.key === 'Escape') {
-                closeSettingsModal();
-                closeNotificationModal();
-                closeAlarmModal();
-            }
-            
-            // Space bar to start/stop stopwatch
-            if (event.key === ' ' && currentTool === 'sekundomer') {
-                event.preventDefault();
-                if (stopwatchRunning) {
-                    stopStopwatch();
-                } else {
-                    startStopwatch();
-                }
-            }
-            
-            // Enter key to set alarm/timer
-            if (event.key === 'Enter') {
-                if (currentTool === 'budilnik') {
-                    setAlarm();
-                } else if (currentTool === 'timer') {
-                    setTimer();
-                } else if (currentTool === 'yosh') {
-                    calculateAge();
-                }
-            }
-        });
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            showTool('budilnik');
-            showNotification('Xush kelibsiz!', 'JavlonTools ga xush kelibsiz. Barcha asboblar tayyor!');
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

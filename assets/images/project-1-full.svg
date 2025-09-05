@@ -1,0 +1,13 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#151820"/>
+  <rect x="50" y="50" width="700" height="500" fill="#1f2937" stroke="#6cf0a5" stroke-width="3"/>
+  <rect x="100" y="100" width="600" height="40" fill="#6cf0a5"/>
+  <rect x="100" y="160" width="400" height="25" fill="#66d9ef"/>
+  <rect x="100" y="200" width="500" height="25" fill="#b6b9c5"/>
+  <rect x="100" y="240" width="450" height="25" fill="#b6b9c5"/>
+  <rect x="100" y="300" width="280" height="200" fill="#1f2937" stroke="#66d9ef" stroke-width="2"/>
+  <rect x="400" y="300" width="280" height="200" fill="#1f2937" stroke="#6cf0a5" stroke-width="2"/>
+  <text x="400" y="540" font-family="monospace" font-size="24" fill="#e6e8ef" text-anchor="middle">
+    Project Alpha - Full View
+  </text>
+</svg>

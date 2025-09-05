@@ -1,0 +1,13 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#151820"/>
+  <rect x="100" y="100" width="1000" height="400" fill="#1f2937" stroke="#6cf0a5" stroke-width="2"/>
+  <text x="600" y="250" font-family="monospace" font-size="32" font-weight="600" fill="#e6e8ef" text-anchor="middle">
+    MonoWorks Studio
+  </text>
+  <text x="600" y="300" font-family="monospace" font-size="18" fill="#b6b9c5" text-anchor="middle">
+    Crafting Digital Excellence
+  </text>
+  <text x="600" y="350" font-family="monospace" font-size="16" fill="#6cf0a5" text-anchor="middle">
+    Hero Image Placeholder
+  </text>
+</svg>

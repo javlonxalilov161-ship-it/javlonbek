@@ -1,0 +1,13 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#151820"/>
+  <rect x="50" y="50" width="700" height="500" fill="#1f2937" stroke="#66d9ef" stroke-width="3"/>
+  <circle cx="200" cy="200" r="40" fill="#66d9ef"/>
+  <circle cx="400" cy="200" r="40" fill="#6cf0a5"/>
+  <circle cx="600" cy="200" r="40" fill="#ff6b6b"/>
+  <rect x="100" y="280" width="600" height="30" fill="#6cf0a5"/>
+  <rect x="100" y="330" width="450" height="20" fill="#b6b9c5"/>
+  <rect x="100" y="370" width="500" height="20" fill="#b6b9c5"/>
+  <text x="400" y="540" font-family="monospace" font-size="24" fill="#e6e8ef" text-anchor="middle">
+    Project Beta - Full View
+  </text>
+</svg>

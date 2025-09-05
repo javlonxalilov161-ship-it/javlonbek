@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#000000"/>
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#22d3ee" stroke-width="4"/>
+  <path d="M30 50h40M50 30v40" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+  <text x="50" y="85" font-family="PT Mono" font-size="12" fill="#22d3ee" text-anchor="middle">LUXURYTECH</text>
+</svg>
